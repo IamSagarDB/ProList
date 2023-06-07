@@ -27,7 +27,7 @@ class Repository @Inject constructor(private val apiServiceImp: ApiServiceImp) {
         emit(apiServiceImp.deleteProduct(id))
     }.flowOn(Dispatchers.IO)
 
-    fun updateProduct(product: Product, id :String) : Flow<ApiResponse>  = flow {
-        emit(apiServiceImp.updateProduct(product, id))
+    fun updateProduct(product: Product) : Flow<ApiResponse>  = flow {
+        emit(apiServiceImp.updateProduct(product))
     }.flowOn(Dispatchers.IO)
 }

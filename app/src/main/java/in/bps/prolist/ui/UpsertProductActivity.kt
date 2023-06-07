@@ -50,7 +50,7 @@ class UpsertProductActivity : AppCompatActivity() {
         val categoryBundle = intent.getStringExtra("category")
         val imageUrl = intent.getStringExtra("imageUrl")
 
-        if (!documentId.equals("new")) {
+        if (documentId!!.isNotBlank() || documentId.isNotEmpty()) {
             binding.productNameKN.setText(productNameKNBundle)
             binding.productNameEN.setText(productNameENBundle)
             binding.productPrice.setText(productPriceBundle.toString())
@@ -78,13 +78,13 @@ class UpsertProductActivity : AppCompatActivity() {
             val category = binding.productCategory.text!!.trim().toString()
 
             if (productNameKn.isNotEmpty() && productNameEN.isNotEmpty() && measure.isNotEmpty() && category.isNotEmpty() && isImageUploaded && productPrice.isNotEmpty()) {
-                var product = Product (category = category, measureIn = measure, productImage = downloadImageUrl.toString(), productName_en = productNameEN, productName_kn = productNameKn , productPrice = productPrice.toInt(), _id = documentId!! );
+                var product = Product (category = category, measureIn = measure, productImage = downloadImageUrl.toString(), productName_en = productNameEN, productName_kn = productNameKn , productPrice = productPrice.toInt(), id = documentId!! );
                 // add new
-                if (documentId.equals("new")){
+                if (documentId.isBlank() || documentId.isEmpty()){
                     addNewProduct(product)
                 } else {
                     // update existing one
-                    updateProduct(product, documentId)
+                    updateProduct(product)
                 }
             }
 
@@ -142,8 +142,8 @@ class UpsertProductActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProduct(product: Product, id :String) {
-        productViewModel.updateProduct(product, id)
+    private fun  updateProduct(product: Product) {
+        productViewModel.updateProduct(product)
         lifecycleScope.launchWhenStarted {
             productViewModel.updateProduct.collect {
                 when(it) {

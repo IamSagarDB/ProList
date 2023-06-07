@@ -29,6 +29,6 @@ interface ApiService {
     suspend fun deleteProduct(@Path("id") id : String) : ApiResponse
 
     // Patch / Update product
-    @PATCH(Constants.getProductById)
-    suspend fun updateProduct(@Body params: Product, @Path("id") id : String) : ApiResponse
+    @PATCH(Constants.getProducts)
+    suspend fun updateProduct(@Body params: Product) : ApiResponse
 }

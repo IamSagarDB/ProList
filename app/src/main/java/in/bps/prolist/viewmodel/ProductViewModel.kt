@@ -68,9 +68,9 @@ class ProductViewModel @Inject constructor(private val repository: Repository) :
             _deleteProduct.value = ApiState.Success(data)
         }
     }
-    fun updateProduct(product: Product, id :String) = viewModelScope.launch {
+    fun updateProduct(product: Product) = viewModelScope.launch {
         _updateProduct.value = ApiState.Loading
-        repository.updateProduct(product, id).catch { e ->
+        repository.updateProduct(product).catch { e ->
             _updateProduct.value = ApiState.Failure(e)
         }.collect{ data ->
             _updateProduct.value = ApiState.Success(data)

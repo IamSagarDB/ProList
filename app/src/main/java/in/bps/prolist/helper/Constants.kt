@@ -1,10 +1,10 @@
 package `in`.bps.prolist.helper
 
 object Constants {
-    const val baseUrl = "https://bpscatalogapi.cyclic.app/";
+    const val baseUrl = "https://bpsapi.azurewebsites.net/api/";
     const val env = "dev"
 
     // API path
-    const val getProducts = "products"
-    const val getProductById = "products/{id}"
+    const val getProducts = "Product"
+    const val getProductById = "Product/{id}"
 }

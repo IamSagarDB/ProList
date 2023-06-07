@@ -9,5 +9,5 @@ class ApiServiceImp @Inject constructor(private val apiService: ApiService) {
     suspend fun getProductById(id : String) : ApiResponse = apiService.getProductById(id)
     suspend fun addNewProduct(product: Product) : ApiResponse = apiService.addNewProduct(product)
     suspend fun deleteProduct(id: String) : ApiResponse = apiService.deleteProduct(id)
-    suspend fun updateProduct(product: Product,id :String) : ApiResponse = apiService.updateProduct(product, id)
+    suspend fun updateProduct(product: Product) : ApiResponse = apiService.updateProduct(product)
 }

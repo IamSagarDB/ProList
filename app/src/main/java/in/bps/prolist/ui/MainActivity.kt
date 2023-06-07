@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // new Product
         binding.addProduct.setOnClickListener {
             val intent = Intent(this, UpsertProductActivity::class.java)
-            intent.putExtra("documentId", "new")
+            intent.putExtra("documentId", "")
             intent.putExtra("productName", "new")
             intent.putExtra("productNameEN", "new")
             intent.putExtra("productNameKN", "new")
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                                     intent.putExtra("productPrice", item.productPrice)
                                     intent.putExtra("measuredIn", item.measureIn)
                                     intent.putExtra("category", item.category)
-                                    intent.putExtra("documentId", item._id)
+                                    intent.putExtra("documentId", item.id)
                                     intent.putExtra("imageUrl", item.productImage)
                                     startActivity(intent)
                                 }

@@ -1,8 +1,7 @@
 package `in`.bps.prolist.models
 
 data class Product(
-    val _id : String
-    ,
+    val id : String,
     val category : String,
     val measureIn : String,
     val productImage : String,
