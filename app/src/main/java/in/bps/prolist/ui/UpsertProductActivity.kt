@@ -14,6 +14,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +38,8 @@ class UpsertProductActivity : AppCompatActivity() {
     private var isImageUploaded: Boolean = false
     private var progressDialog: CustomDialog? = null
     private val productViewModel: ProductViewModel by viewModels()
+    private var selectedMeasure: String = ""
+    private var selectedCategory: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +48,45 @@ class UpsertProductActivity : AppCompatActivity() {
 
         storage = Firebase.storage
         progressDialog = CustomDialog(this)
+
+        val measure = resources.getStringArray(R.array.measure);
+        val category = resources.getStringArray(R.array.category);
+
+        // measure Drop Down
+        val measureSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, measure)
+        binding.measureSpinner.adapter = measureSpinnerAdapter;
+
+        // category dropdown
+        val categorySpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, category);
+        binding.categorySpinner.adapter = categorySpinnerAdapter;
+
+        binding.measureSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedMeasure = measure[position];
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        binding.categorySpinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedCategory = category[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
 
         val productNameENBundle = intent.getStringExtra("productNameEN")
         val productNameKNBundle = intent.getStringExtra("productNameKN")
@@ -54,8 +100,8 @@ class UpsertProductActivity : AppCompatActivity() {
             binding.productNameKN.setText(productNameKNBundle)
             binding.productNameEN.setText(productNameENBundle)
             binding.productPrice.setText(productPriceBundle.toString())
-            binding.productMeasuredIn.setText(measuredInBundle)
-            binding.productCategory.setText(categoryBundle)
+            binding.measureSpinner.setSelection(measureSpinnerAdapter.getPosition(measuredInBundle));
+            binding.categorySpinner.setSelection(categorySpinnerAdapter.getPosition(categoryBundle))
             downloadImageUrl = Uri.parse(imageUrl)
             Picasso.get()
                 .load(downloadImageUrl)
@@ -70,12 +116,11 @@ class UpsertProductActivity : AppCompatActivity() {
         }
 
         binding.updateProduct.setOnClickListener {
-
             val productNameKn = binding.productNameKN.text!!.trim().toString()
             val productNameEN = binding.productNameEN.text!!.trim().toString()
             val productPrice = binding.productPrice.text!!.trim().toString()
-            val measure = binding.productMeasuredIn.text!!.trim().toString()
-            val category = binding.productCategory.text!!.trim().toString()
+            val measure = selectedMeasure.trim()
+            val category = selectedCategory.trim()
 
             if (productNameKn.isNotEmpty() && productNameEN.isNotEmpty() && measure.isNotEmpty() && category.isNotEmpty() && isImageUploaded && productPrice.isNotEmpty()) {
                 var product = Product (category = category, measureIn = measure, productImage = downloadImageUrl.toString(), productName_en = productNameEN, productName_kn = productNameKn , productPrice = productPrice.toInt(), id = documentId!! );
@@ -87,7 +132,6 @@ class UpsertProductActivity : AppCompatActivity() {
                     updateProduct(product)
                 }
             }
-
         }
     }
 

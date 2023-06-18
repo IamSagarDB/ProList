@@ -60,37 +60,42 @@
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="5dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productMeasuredIn"
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:hint="@string/measured_in_kg_lts"
-            android:inputType="textCapWords"
-            android:textAllCaps="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="@color/black"
+            android:text="@string/measured_in_kg_lts"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        <Spinner
+            android:id="@+id/measureSpinner"
+            android:layout_width="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="5dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productCategory"
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:hint="@string/category"
-            android:inputType="text"
-            android:textAllCaps="false" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="@color/black"
+            android:text="@string/category"/>
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/updateProduct"

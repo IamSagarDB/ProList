@@ -25,7 +25,7 @@
     <string name="enter_amount">Enter Amount</string>
     <string name="get_weight">get weight</string>
     <string name="add_product">Add Product</string>
-    <string name="measured_in_kg_lts">Measured in (Kg / Lts)</string>
+    <string name="measured_in_kg_lts">Measured in</string>
     <string name="category">Category</string>
     <string name="product_name_in_en">Product Name in EN</string>
     <string name="product_name_in_kn">Product Name in KN</string>
@@ -34,4 +34,14 @@
     <string name="please_wait">Please Wait..</string>
     <string name="something_went_wrong">Something went wrong please try again</string>
 
+    <string-array name="measure">
+        <item>Kg</item>
+        <item>Lts</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>grains</item>
+        <item>flour</item>
+        <item>etc</item>
+    </string-array>
 </resources>
